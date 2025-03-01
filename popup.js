@@ -27,6 +27,7 @@ async function loadTemplates() {
 
   sortedTemplates.forEach(option => select.appendChild(option));
 
+  // If an active template is set, load its values
   if (activeTemplate && templates[activeTemplate]) {
     document.getElementById("prefixInput").value = templates[activeTemplate].prefix || "";
     document.getElementById("suffixInput").value = templates[activeTemplate].suffix || "";
@@ -47,11 +48,13 @@ document.addEventListener("DOMContentLoaded", async () => {
       document.getElementById("prefixInput").value = templates[selectedTemplate].prefix || "";
       document.getElementById("suffixInput").value = templates[selectedTemplate].suffix || "";
       document.getElementById("saveButton").textContent = "Update Template";
+      // Save the active template
       await browser.storage.local.set({ activeTemplate: selectedTemplate });
     } else {
       document.getElementById("prefixInput").value = "";
       document.getElementById("suffixInput").value = "";
       document.getElementById("saveButton").textContent = "Save New Template";
+      // Clear the active template
       await browser.storage.local.remove("activeTemplate");
     }
   });
@@ -77,10 +80,12 @@ document.addEventListener("DOMContentLoaded", async () => {
     const templates = storedData.templates || {};
 
     if (selectedTemplate && selectedTemplate !== "") {
+      // Update existing template
       templates[selectedTemplate] = { prefix, suffix };
       await browser.storage.local.set({ templates, activeTemplate: selectedTemplate });
       changeButtonColor(document.getElementById("saveButton"), "green", 2000);
     } else {
+      // Create new template
       document.getElementById("modal").style.display = "block";
     }
   });
@@ -128,43 +133,5 @@ document.addEventListener("DOMContentLoaded", async () => {
     const output = `${prefix ? prefix + '\n' : ''}${activeTab.url}${suffix}`;
     navigator.clipboard.writeText(output);
     changeButtonColor(document.getElementById("copyActiveUrlButton"), "green", 2000);
-  });
-
-  // Export Templates
-  document.getElementById("exportTemplates").addEventListener("click", async () => {
-    const storedData = await browser.storage.local.get("templates");
-    const templates = storedData.templates || {};
-    const blob = new Blob([JSON.stringify(templates, null, 2)], {type: "application/json"});
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement("a");
-    a.href = url;
-    a.download = "url_templates.json";
-    a.click();
-    URL.revokeObjectURL(url);
-    changeButtonColor(document.getElementById("exportTemplates"), "green", 2000);
-  });
-
-  // Import Templates
-  document.getElementById("importTemplates").addEventListener("click", () => {
-    document.getElementById("importFile").click();
-  });
-
-  document.getElementById("importFile").addEventListener("change", async (event) => {
-    const file = event.target.files[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = async (e) => {
-        try {
-          const templates = JSON.parse(e.target.result);
-          await browser.storage.local.set({ templates });
-          await loadTemplates();
-          changeButtonColor(document.getElementById("importTemplates"), "green", 2000);
-        } catch (error) {
-          console.error("Error importing templates:", error);
-          changeButtonColor(document.getElementById("importTemplates"), "red", 2000);
-        }
-      };
-      reader.readAsText(file);
-    }
   });
 });
