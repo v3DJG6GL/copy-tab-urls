@@ -8,12 +8,10 @@ function debugLog(message, isError = false) {
     const logEntry = document.createElement("div");
     logEntry.textContent = message;
     logEntry.classList.add('log-entry');
-
     if (isError) {
         logEntry.classList.add('error-entry');
         console.error(message);
     }
-
     debugOutput.appendChild(logEntry);
     debugOutput.scrollTop = debugOutput.scrollHeight;
 }
@@ -33,8 +31,12 @@ async function loadTemplates() {
         const templates = storedData.templates || {};
         const activeTemplate = storedData.activeTemplate || "";
         const select = document.getElementById("templateSelect");
-        select.innerHTML = 'Select a template';
-        const sortedTemplates = Object.keys(templates).sort().map(key => {
+        select.innerHTML = '<option value="">Select a template</option>'; // Ensure the initial option is present
+
+        // Case-insensitive sorting
+        const sortedTemplateNames = Object.keys(templates).sort((a, b) => a.toLowerCase().localeCompare(b.toLowerCase()));
+
+        const sortedTemplates = sortedTemplateNames.map(key => {
             const option = document.createElement("option");
             option.value = key;
             option.textContent = key;
@@ -43,7 +45,9 @@ async function loadTemplates() {
             }
             return option;
         });
+
         sortedTemplates.forEach(option => select.appendChild(option));
+
         // If an active template is set, load its values
         if (activeTemplate && templates[activeTemplate]) {
             document.getElementById("prefixInput").value = templates[activeTemplate].prefix || "";
