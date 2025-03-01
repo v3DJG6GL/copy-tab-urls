@@ -9,35 +9,47 @@ function changeButtonColor(button, color, duration) {
 }
 
 async function loadTemplates() {
-  const storedData = await browser.storage.local.get(["templates", "activeTemplate"]);
-  const templates = storedData.templates || {};
-  const activeTemplate = storedData.activeTemplate || "";
-  const select = document.getElementById("templateSelect");
-  select.innerHTML = '<option value="">Select a template</option>';
+  try {
+    const storedData = await browser.storage.local.get(["templates", "activeTemplate"]);
+    console.log("loadTemplates: Retrieved stored data");
 
-  const sortedTemplates = Object.keys(templates).sort().map(key => {
-    const option = document.createElement("option");
-    option.value = key;
-    option.textContent = key;
-    if (key === activeTemplate) {
-      option.selected = true;
+    const templates = storedData.templates || {};
+    const activeTemplate = storedData.activeTemplate || "";
+
+    const select = document.getElementById("templateSelect");
+    select.innerHTML = '<option value="">Select a template</option>';
+
+    const sortedTemplates = Object.keys(templates).sort().map(key => {
+      const option = document.createElement("option");
+      option.value = key;
+      option.textContent = key;
+      if (key === activeTemplate) {
+        option.selected = true;
+      }
+      return option;
+    });
+
+    sortedTemplates.forEach(option => select.appendChild(option));
+
+    // If an active template is set, load its values
+    if (activeTemplate && templates[activeTemplate]) {
+      document.getElementById("prefixInput").value = templates[activeTemplate].prefix || "";
+      document.getElementById("suffixInput").value = templates[activeTemplate].suffix || "";
+      document.getElementById("saveButton").textContent = "Update Template";
+    } else {
+      document.getElementById("prefixInput").value = "";
+      document.getElementById("suffixInput").value = "";
+      document.getElementById("saveButton").textContent = "Save New Template";
     }
-    return option;
-  });
 
-  sortedTemplates.forEach(option => select.appendChild(option));
-
-  // If an active template is set, load its values
-  if (activeTemplate && templates[activeTemplate]) {
-    document.getElementById("prefixInput").value = templates[activeTemplate].prefix || "";
-    document.getElementById("suffixInput").value = templates[activeTemplate].suffix || "";
-    document.getElementById("saveButton").textContent = "Update Template";
-  } else {
-    document.getElementById("saveButton").textContent = "Save New Template";
+    console.log(`loadTemplates: Loaded ${Object.keys(templates).length} templates`);
+  } catch (error) {
+    console.error(`loadTemplates error: ${error.message}`);
   }
 }
 
 document.addEventListener("DOMContentLoaded", async () => {
+  console.log("DOM content loaded, initializing addon...");
   await loadTemplates();
 
   document.getElementById("templateSelect").addEventListener("change", async (event) => {
@@ -76,6 +88,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     const selectedTemplate = document.getElementById("templateSelect").value;
     const prefix = document.getElementById("prefixInput").value;
     const suffix = document.getElementById("suffixInput").value;
+
     const storedData = await browser.storage.local.get("templates");
     const templates = storedData.templates || {};
 
@@ -95,6 +108,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     if (templateName) {
       const prefix = document.getElementById("prefixInput").value;
       const suffix = document.getElementById("suffixInput").value;
+
       const storedData = await browser.storage.local.get("templates");
       const templates = storedData.templates || {};
       templates[templateName] = { prefix, suffix };
@@ -102,6 +116,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       await loadTemplates();
       changeButtonColor(document.getElementById("saveButton"), "green", 2000);
     }
+
     document.getElementById("modal").style.display = "none";
     document.getElementById("templateNameInput").value = "";
   });
@@ -114,6 +129,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   document.getElementById("copyUrlsButton").addEventListener("click", async () => {
     const tabs = await browser.tabs.query({currentWindow: true, highlighted: true});
     const urls = tabs.map(t => t.url);
+
     const prefix = document.getElementById("prefixInput").value;
     const suffix = document.getElementById("suffixInput").value;
 
@@ -127,11 +143,20 @@ document.addEventListener("DOMContentLoaded", async () => {
   document.getElementById("copyActiveUrlButton").addEventListener("click", async () => {
     const tabs = await browser.tabs.query({active: true, currentWindow: true});
     const activeTab = tabs[0];
+
     const prefix = document.getElementById("prefixInput").value;
     const suffix = document.getElementById("suffixInput").value;
 
     const output = `${prefix ? prefix + '\n' : ''}${activeTab.url}${suffix}`;
+
     navigator.clipboard.writeText(output);
     changeButtonColor(document.getElementById("copyActiveUrlButton"), "green", 2000);
   });
+
+  // Add event listener for opening options page
+  document.getElementById("openOptionsBtn").addEventListener("click", () => {
+    browser.runtime.openOptionsPage();
+  });
+
+  console.log("All event listeners registered, addon initialization complete");
 });
