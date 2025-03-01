@@ -19,9 +19,10 @@
 		"activeTab",
 		"contextMenus",
 		"clipboardWrite",
-		"storage"
-	],
-
+		"storage",
+		"downloads",
+		"downloads.open"
+    ],
 	"browser_specific_settings": {
 		"gecko": {
 			"id": "copy-tab-urls@v3DJG6GL.github.io",
