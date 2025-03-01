@@ -1,4 +1,4 @@
-// popup.js
+// options.js
 
 // Helper function to log debug information both to console and UI
 function debugLog(message, isError = false) {
