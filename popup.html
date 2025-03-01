@@ -6,25 +6,37 @@
     body {
       font-family: sans-serif;
       padding: 10px;
-      min-width: 500px;
+      width: 500px;
+      height: 560px;
     }
     button {
       width: 100%;
       padding: 0.5rem 1rem;
-      margin-right: 0.5rem;
-      margin-bottom: 0.5rem;
       border: none;
       border-radius: 2px;
       cursor: pointer;
     }
-    select, input {
-      margin: 5px 0;
+    select {
       width: 100%;
+      padding: 8px;
+      margin: 10px 0;
+      box-sizing: border-box;
     }
-    textarea {
-      margin: 5px 0;
+    input {
       width: 100%;
-      min-height: 200px;
+      padding: 8px;
+      margin: 10px 0;
+      box-sizing: border-box;
+    }
+
+    textarea {
+      min-width: 100%;
+      max-width: 100%;
+      min-height: 270px;
+      max-height: 270px;
+      padding: 8px;
+      margin: 10px 0;
+      box-sizing: border-box;
     }
     .modal {
       display: none;
@@ -44,15 +56,12 @@
       width: 80%;
     }
     .buttonGroup {
-      margin-top: 15px;
+      margin-bottom: 0.8rem;
       display: flex;
       gap: 5px;
     }
     .buttonGroup button {
       flex: 1;
-      padding: 0.5rem 1rem;
-      margin-right: 0.5rem;
-      margin-bottom: 0.5rem;
       border: none;
       border-radius: 2px;
       cursor: pointer;
@@ -78,27 +87,6 @@
       border-radius: 5px;
     }
 
-    .modal-buttons {
-      margin-top: 15px;
-      display: flex;
-      justify-content: flex-end;
-    }
-
-    .modal-buttons button {
-      padding: 0.5rem 1rem;
-      margin-right: 0.5rem;
-      margin-bottom: 0.5rem;
-      border: none;
-      border-radius: 2px;
-      cursor: pointer;
-    }
-
-    #newTemplateNameInput {
-      width: 100%;
-      padding: 8px;
-      margin: 10px 0;
-      box-sizing: border-box;
-    }
   @media (prefers-color-scheme: dark) {
     body {
       background-color: #2b2b2b;
@@ -108,9 +96,6 @@
       background-color: #3d3d3d;
       color: #e0e0e0;
       border: 1px solid #555;
-      padding: 0.5rem 1rem;
-      margin-right: 0.5rem;
-      margin-bottom: 0.5rem;
       border: none;
       border-radius: 2px;
       cursor: pointer;
@@ -136,67 +121,42 @@
       background-color: #2b2b2b;
       color: #e0e0e0;
     }
-    .buttonGroup {
-      margin-top: 15px;
-      display: flex;
-      gap: 5px;
-    }
-    .modal-buttons {
-      margin-top: 15px;
-      display: flex;
-      justify-content: flex-end;
-    }
-    .modal-buttons button {
-      background-color: #3d3d3d;
-      color: #e0e0e0;
-      border: 1px solid #555;
-      padding: 0.5rem 1rem;
-      margin-right: 0.5rem;
-      margin-bottom: 0.5rem;
-      border: none;
-      border-radius: 2px;
-      cursor: pointer;
-    }
-    .modal-buttons button:hover {
-      background-color: #4a4a4a;
-    }
   }
   </style>
 </head>
 <body>
-  <button id="copyActiveUrlButton">Copy Active URL</button>
-  <button id="copyUrlsButton">Copy Marked URLs</button>
-  <hr>
-  <h2>URL Prefix/Suffix Settings</h2>
+  <div class="buttonGroup">
+    <button id="copyActiveUrlButton">Copy Active URL</button>
+    <button id="copyUrlsButton">Copy Marked URLs</button>
+  </div>
   <textarea id="prefixInput" rows="10" placeholder="URL Prefix (optional)"></textarea>
   <input type="text" id="suffixInput" placeholder="URL Suffix (optional)">
   <hr>
   <select id="templateSelect">
     <option value="">Select a template</option>
   </select>
+  <hr>
   <div class="buttonGroup">
     <button id="saveButton">Save Template</button>
     <button id="renameTemplate">Rename</button>
     <button id="deleteTemplate">Delete</button>
   </div>
-  <hr>
   <button id="openOptionsBtn">Template Backup & Restore</button>
 
   <div id="renameModal" style="display: none;" class="modal">
     <div class="modal-content">
       <h3>Rename Template</h3>
       <input type="text" id="newTemplateNameInput" placeholder="Enter new template name">
-      <div class="modal-buttons">
+      <div class="buttonGroup">
         <button id="renameTemplateButton">Rename</button>
         <button id="cancelRenameButton">Cancel</button>
       </div>
     </div>
   </div>
-
   <div id="modal" class="modal">
     <div class="modal-content">
-      <div>Enter a name for this template:</div>
-      <input type="text" id="templateNameInput">
+      <h3>Save Template</h3>
+      <input type="text" id="templateNameInput" placeholder="Enter template name">
       <div class="buttonGroup">
         <button id="cancelTemplateNameButton">Cancel</button>
         <button id="saveTemplateNameButton">Save</button>
