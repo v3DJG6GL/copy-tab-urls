@@ -234,32 +234,6 @@ document.addEventListener("DOMContentLoaded", async () => {
         document.getElementById("templateNameInput").value = "";
     });
 
-    document.getElementById("copyUrlsButton").addEventListener("click", async () => {
-        const tabs = await browser.tabs.query({currentWindow: true, highlighted: true});
-        const urls = tabs.map(t => t.url);
-        const prefix = document.getElementById("prefixInput").value;
-        const suffix = document.getElementById("suffixInput").value;
-        let output = prefix ? `${prefix}\n` : '';
-        output += urls.map(url => `${url}${suffix}`).join("\n");
-        navigator.clipboard.writeText(output);
-        changeButtonColor(document.getElementById("copyUrlsButton"), "green", 2000);
-    });
-
-    document.getElementById("copyActiveUrlButton").addEventListener("click", async () => {
-        const tabs = await browser.tabs.query({active: true, currentWindow: true});
-        const activeTab = tabs[0];
-        const prefix = document.getElementById("prefixInput").value;
-        const suffix = document.getElementById("suffixInput").value;
-        const output = `${prefix ? prefix + '\n' : ''}${activeTab.url}${suffix}`;
-        navigator.clipboard.writeText(output);
-        changeButtonColor(document.getElementById("copyActiveUrlButton"), "green", 2000);
-    });
-
-    // Add event listener for opening options page
-    document.getElementById("openOptionsBtn").addEventListener("click", () => {
-        browser.runtime.openOptionsPage();
-    });
-
     // Add event listener for the rename template button
     document.getElementById("renameTemplate").addEventListener("click", async () => {
         const selectedTemplate = document.getElementById("templateSelect").value;
