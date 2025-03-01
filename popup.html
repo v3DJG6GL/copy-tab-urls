@@ -20,7 +20,7 @@
     textarea {
       margin: 5px 0;
       width: 100%;
-      min-height: 80px;
+      min-height: 200px;
     }
     .modal {
       display: none;
@@ -83,6 +83,43 @@
       margin: 10px 0;
       box-sizing: border-box;
     }
+  @media (prefers-color-scheme: dark) {
+    body {
+      background-color: #2b2b2b;
+      color: #e0e0e0;
+    }
+    button {
+      background-color: #3d3d3d;
+      color: #e0e0e0;
+      border: 1px solid #555;
+    }
+    button:hover {
+      background-color: #4a4a4a;
+    }
+    input[type="text"] {
+      background-color: #3d3d3d;
+      color: #e0e0e0;
+      border: 1px solid #555;
+    }
+    textarea {
+      background-color: #3d3d3d;
+      color: #e0e0e0;
+      border: 1px solid #555;
+    }
+    select {
+      background-color: #3d3d3d;
+      color: #e0e0e0;
+    }
+    .modal-content {
+      background-color: #2b2b2b;
+      color: #e0e0e0;
+    }
+    .modal-buttons {
+      background-color: #3d3d3d;
+      color: #e0e0e0;
+      border: 1px solid #555;
+    }
+  }
   </style>
 </head>
 <body>
@@ -90,7 +127,7 @@
   <button id="copyUrlsButton">Copy Marked URLs</button>
   <hr>
   <div>URL Prefix/Suffix Settings</div>
-  <textarea id="prefixInput" rows="5" placeholder="URL Prefix (optional)"></textarea>
+  <textarea id="prefixInput" rows="10" placeholder="URL Prefix (optional)"></textarea>
   <input type="text" id="suffixInput" placeholder="URL Suffix (optional)">
   <hr>
   <select id="templateSelect">

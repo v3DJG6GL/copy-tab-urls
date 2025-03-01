@@ -27,6 +27,29 @@ button {
 .buttonGroup button {
     flex: 1;
 }
+  @media (prefers-color-scheme: dark) {
+    body {
+      background-color: #2b2b2b;
+      color: #e0e0e0;
+    }
+    input[type="text"], select {
+      background-color: #3d3d3d;
+      color: #e0e0e0;
+      border: 1px solid #555;
+    }
+    button {
+      background-color: #3d3d3d;
+      color: #e0e0e0;
+      border: 1px solid #555;
+    }
+    button:hover {
+      background-color: #4a4a4a;
+    }
+    #debugOutput {
+    background-color: #3d3d3d;
+    color: #e0e0e0;
+  }
+}
 #debugOutput {
 margin-top: 20px;
 padding: 10px;
