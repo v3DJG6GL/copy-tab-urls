@@ -34,7 +34,7 @@ async function loadTemplates() {
     // If an active template is set, load its values
     if (activeTemplate && templates[activeTemplate]) {
       document.getElementById("prefixInput").value = templates[activeTemplate].prefix || "";
-      // document.getElementById("suffixInput").value = templates[activeTemplate].suffix || "";
+      document.getElementById("suffixInput").value = templates[activeTemplate].suffix || "";
       document.getElementById("saveButton").textContent = "Update Template";
     } else {
       document.getElementById("prefixInput").value = "";
