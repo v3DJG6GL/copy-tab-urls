@@ -34,7 +34,7 @@ async function loadTemplates() {
     // If an active template is set, load its values
     if (activeTemplate && templates[activeTemplate]) {
       document.getElementById("prefixInput").value = templates[activeTemplate].prefix || "";
-      document.getElementById("suffixInput").value = templates[activeTemplate].suffix || "";
+      // document.getElementById("suffixInput").value = templates[activeTemplate].suffix || "";
       document.getElementById("saveButton").textContent = "Update Template";
     } else {
       document.getElementById("prefixInput").value = "";
@@ -156,6 +156,60 @@ document.addEventListener("DOMContentLoaded", async () => {
   // Add event listener for opening options page
   document.getElementById("openOptionsBtn").addEventListener("click", () => {
     browser.runtime.openOptionsPage();
+  });
+  // Add event listener for the rename template button
+  document.getElementById("renameTemplate").addEventListener("click", async () => {
+    const selectedTemplate = document.getElementById("templateSelect").value;
+    if (selectedTemplate) {
+      // Show the rename modal
+      document.getElementById("renameModal").style.display = "block";
+      // Pre-fill the input with the current template name
+      document.getElementById("newTemplateNameInput").value = selectedTemplate;
+    }
+  });
+
+  // Add event listener for the rename confirmation button
+  document.getElementById("renameTemplateButton").addEventListener("click", async () => {
+    const selectedTemplate = document.getElementById("templateSelect").value;
+    const newTemplateName = document.getElementById("newTemplateNameInput").value;
+
+    if (selectedTemplate && newTemplateName && selectedTemplate !== newTemplateName) {
+      const storedData = await browser.storage.local.get("templates");
+      const templates = storedData.templates || {};
+
+      // Create a new template with the new name but same settings
+      templates[newTemplateName] = templates[selectedTemplate];
+      // Delete the old template
+      delete templates[selectedTemplate];
+
+      // Check if the renamed template was the active one
+      const activeTemplateData = await browser.storage.local.get("activeTemplate");
+      const activeTemplate = activeTemplateData.activeTemplate || "";
+
+      // If the renamed template was active, update the active template reference
+      if (activeTemplate === selectedTemplate) {
+        await browser.storage.local.set({ activeTemplate: newTemplateName });
+      }
+
+      // Save the updated templates
+      await browser.storage.local.set({ templates });
+
+      // Reload templates to update the UI
+      await loadTemplates();
+
+      // Provide visual feedback
+      changeButtonColor(document.getElementById("renameTemplate"), "green", 2000);
+    }
+
+    // Hide the modal
+    document.getElementById("renameModal").style.display = "none";
+    document.getElementById("newTemplateNameInput").value = "";
+  });
+
+  // Add event listener for the cancel rename button
+  document.getElementById("cancelRenameButton").addEventListener("click", () => {
+    document.getElementById("renameModal").style.display = "none";
+    document.getElementById("newTemplateNameInput").value = "";
   });
 
   console.log("All event listeners registered, addon initialization complete");

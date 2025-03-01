@@ -6,7 +6,7 @@
     body {
       font-family: sans-serif;
       padding: 10px;
-      min-width: 300px;
+      min-width: 500px;
     }
     button {
       margin: 5px 0;
@@ -46,6 +46,43 @@
     .buttonGroup button {
       flex: 1;
     }
+    /* CSS for the rename modal */
+    #renameModal {
+      position: fixed;
+      z-index: 1;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      background-color: rgba(0,0,0,0.4);
+    }
+
+    .modal-content {
+      background-color: #fefefe;
+      margin: 15% auto;
+      padding: 20px;
+      border: 1px solid #888;
+      width: 80%;
+      border-radius: 5px;
+    }
+
+    .modal-buttons {
+      margin-top: 15px;
+      display: flex;
+      justify-content: flex-end;
+    }
+
+    .modal-buttons button {
+      margin-left: 10px;
+    }
+
+    #newTemplateNameInput {
+      width: 100%;
+      padding: 8px;
+      margin: 10px 0;
+      box-sizing: border-box;
+    }
   </style>
 </head>
 <body>
@@ -60,11 +97,23 @@
     <option value="">Select a template</option>
   </select>
   <div class="buttonGroup">
-    <button id="deleteTemplate">Delete</button>
     <button id="saveButton">Save Template</button>
+    <button id="renameTemplate">Rename</button>
+    <button id="deleteTemplate">Delete</button>
   </div>
   <hr>
   <button id="openOptionsBtn">Template Backup & Restore</button>
+
+  <div id="renameModal" style="display: none;" class="modal">
+    <div class="modal-content">
+      <h3>Rename Template</h3>
+      <input type="text" id="newTemplateNameInput" placeholder="Enter new template name">
+      <div class="modal-buttons">
+        <button id="renameTemplateButton">Rename</button>
+        <button id="cancelRenameButton">Cancel</button>
+      </div>
+    </div>
+  </div>
 
   <div id="modal" class="modal">
     <div class="modal-content">
