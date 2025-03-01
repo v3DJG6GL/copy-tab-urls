@@ -35,8 +35,7 @@
         select {
             width: 100%;
             padding: 8px;
-            margin-top: 10px;
-            margin-bottom: 10px;
+            margin: 10px 0;
             box-sizing: border-box;
         }
         input {
@@ -72,7 +71,7 @@
             width: 80%;
         }
         .buttonGroup {
-            margin-bottom: 0.8rem;
+            margin: 10px 0;
             display: flex;
             gap: 5px;
         }
@@ -181,7 +180,10 @@
     </style>
 </head>
 <body>
-    <h1>Copy Tab URLs Options</h1>
+    <h2>Perfix & Suffix Templates</h2>
+    <p>Configure your prefix & suffix templates:
+    The Prefix part is added above the URLs you copy
+    The Suffix is added at the end of each URL line</p>
   <textarea id="prefixInput" rows="10" placeholder="URL Prefix (optional)"></textarea>
   <input type="text" id="suffixInput" placeholder="URL Suffix (optional)">
   <select id="templateSelect">
@@ -212,14 +214,15 @@
       </div>
     </div>
   </div>
-    <h2>Template Backup & Restore</h2>
-    <p>Export your templates to a JSON file for backup or import templates from a previously exported file.</p>
-
-    <button id="exportTemplates">Export Templates</button>
-    <button id="importTemplatesBtn">Import Templates</button>
-    <input type="file" id="importTemplatesFile" accept=".json">
-
+    <h2>Templates Import & Export</h2>
+    <p>Export your templates to a JSON file or import templates from a previously exported file.</p>
+    <div class="buttonGroup">
+        <button id="exportTemplates">Export Templates</button>
+        <button id="importTemplatesBtn">Import Templates</button>
+        <input type="file" id="importTemplatesFile" accept=".json">
+    </div>
     <!-- Debug Output Area -->
+    <h2>Debug Output</h2>
     <div id="debugOutput"></div>
 
     <script src="options.js"></script>
