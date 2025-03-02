@@ -144,7 +144,7 @@
                 border-radius: 2px;
                 cursor: pointer;
             }
-            button:hover {
+            select:hover {
                 background-color: #4a4a4a;
             }
             input[type="text"] {
@@ -160,6 +160,10 @@
             select {
                 background-color: #3d3d3d;
                 color: #e0e0e0;
+                border: 1px solid #555;
+            }
+            button:hover {
+                background-color: #4a4a4a;
             }
             .modal-content {
                 background-color: #2b2b2b;
@@ -181,14 +185,17 @@
 </head>
 <body>
     <h2>Perfix & Suffix Templates</h2>
-    <p>Configure your prefix & suffix templates:
-    The Prefix part is added above the URLs you copy
-    The Suffix is added at the end of each URL line</p>
-  <textarea id="prefixInput" rows="10" placeholder="URL Prefix (optional)"></textarea>
-  <input type="text" id="suffixInput" placeholder="URL Suffix (optional)">
+    <p>Configure your prefix & suffix templates:</p>
+    <ul>
+        <li>The Prefix part is added above the URLs you copy</li>
+        <li>The Suffix is added at the end of each URL line</li>
+        <li>You can leave the template empty if you prefer to copy the URLs without prefix & suffix</li>
+    </ul>
   <select id="templateSelect">
     <option value="">Select a template</option>
   </select>
+  <textarea id="prefixInput" rows="10" placeholder="URL Prefix (optional)"></textarea>
+  <input type="text" id="suffixInput" placeholder="URL Suffix (optional)">
   <div class="buttonGroup">
     <button id="saveButton">Save Template</button>
     <button id="renameTemplate">Rename</button>
