@@ -8,39 +8,44 @@
       padding: 10px;
       width: 500px;
       height: 560px;
-    }
+      }
+    button, select, textarea, input[type="text"] {
+        border: 2px solid #E9E9ED;
+        }
+    button:focus, select:focus, textarea:focus, input:focus[type="text"] {
+        outline: none;
+        border: 2px;
+        border: 2px solid #B1B1B9;
+        }
+    button:hover, select:hover {
+        background-color: #D0D0D7;
+        }
     button {
-      width: 100%;
-      padding: 0.5rem 1rem;
-      border: none;
-      border-radius: 2px;
-      cursor: pointer;
-    }
-    button[id=openOptionsBtn] {
-      margin: 10px 0;
-    }
+        flex: 1;
+        width: 100%;
+        padding: 0.5rem 1rem;
+        cursor: pointer;
+        }
     select {
-      width: 100%;
-      padding: 8px;
-      margin: 10px 0;
-      box-sizing: border-box;
+        width: 100%;
+        padding: 8px;
+        margin-bottom: 5px;
+        box-sizing: border-box;
     }
     input {
-      width: 100%;
-      padding: 8px;
-      margin: 10px 0;
-      box-sizing: border-box;
+        width: 100%;
+        padding: 8px;
+        margin-bottom: 5px;
+        box-sizing: border-box;
     }
-
     textarea {
-      min-width: 100%;
-      max-width: 100%;
-      min-height: 270px;
-      max-height: 270px;
-      padding: 8px;
-      margin: 10px 0;
-      box-sizing: border-box;
-    }
+        min-width: 100%;
+        max-width: 1000px;
+        min-height: 350px;
+        padding: 8px;
+        margin-bottom: 5px;
+        box-sizing: border-box;
+        }
     .modal {
       display: none;
       position: fixed;
@@ -59,15 +64,9 @@
       width: 80%;
     }
     .buttonGroup {
-      margin: 10px 0;
+      margin-bottom: 5px;
       display: flex;
       gap: 5px;
-    }
-    .buttonGroup button {
-      flex: 1;
-      border: none;
-      border-radius: 2px;
-      cursor: pointer;
     }
     /* CSS for the rename modal */
     #renameModal {
@@ -80,7 +79,6 @@
       overflow: auto;
       background-color: rgba(0,0,0,0.4);
     }
-
     .modal-content {
       background-color: #fefefe;
       margin: 15% auto;
@@ -95,39 +93,22 @@
       background-color: #2b2b2b;
       color: #e0e0e0;
     }
-    button {
-      background-color: #3d3d3d;
-      color: #e0e0e0;
-      border: 1px solid #555;
-      border: none;
-      border-radius: 2px;
-      cursor: pointer;
+    button, select, textarea, input[type="text"] {
+        background-color: #3d3d3d;
+        color: #e0e0e0;
+        border: 2px solid #555;
     }
-    button:hover {
-      background-color: #4a4a4a;
+    button:focus, select:focus, textarea:focus, input:focus[type="text"] {
+        outline: none;
+        border: 2px solid #1c1b22;
     }
-    input[type="text"] {
-      background-color: #3d3d3d;
-      color: #e0e0e0;
-      border: 1px solid #555;
+    button:hover, select:hover {
+        background-color: #4a4a4a;
     }
-    textarea {
-      background-color: #3d3d3d;
-      color: #e0e0e0;
-      border: 1px solid #555;
-    }
-    select {
-      background-color: #3d3d3d;
-      color: #e0e0e0;
-      border: 1px solid #555;
-    }
-    select:hover {
-      background-color: #4a4a4a;
-    }
-    .modal-content {
-      background-color: #2b2b2b;
-      color: #e0e0e0;
-    }
+  .modal-content {
+    background-color: #2b2b2b;
+    color: #e0e0e0;
+  }
   }
   </style>
 </head>

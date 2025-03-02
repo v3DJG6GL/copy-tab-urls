@@ -82,7 +82,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       await browser.storage.local.remove("activeTemplate");
       await loadTemplates();
       console.log("Template deleted");
-      changeButtonColor(document.getElementById("deleteTemplate"), "green", 2000);
+      changeButtonColor(document.getElementById("deleteTemplate"), "#5d8e4a", 2000);
     }
   });
 
@@ -96,7 +96,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       // Update existing template
       templates[selectedTemplate] = { prefix, suffix };
       await browser.storage.local.set({ templates, activeTemplate: selectedTemplate });
-      changeButtonColor(document.getElementById("saveButton"), "green", 2000);
+      changeButtonColor(document.getElementById("saveButton"), "#5d8e4a", 2000);
       console.log("Template updated");
     } else {
       // Create new template
@@ -115,7 +115,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       templates[templateName] = { prefix, suffix };
       await browser.storage.local.set({ templates, activeTemplate: templateName });
       await loadTemplates();
-      changeButtonColor(document.getElementById("saveButton"), "green", 2000);
+      changeButtonColor(document.getElementById("saveButton"), "#5d8e4a", 2000);
       document.getElementById("modal").style.display = "none";
       document.getElementById("templateNameInput").value = "";
       console.log("New template saved successfully");
@@ -136,7 +136,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     let output = prefix ? `${prefix}\n` : '';
     output += urls.map(url => `${url}${suffix}`).join("\n");
     navigator.clipboard.writeText(output);
-    changeButtonColor(document.getElementById("copyUrlsButton"), "green", 2000);
+    changeButtonColor(document.getElementById("copyUrlsButton"), "#5d8e4a", 2000);
     console.log("Marked URLs copied");
   });
 
@@ -147,7 +147,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     const suffix = document.getElementById("suffixInput").value;
     const output = `${prefix ? prefix + '\n' : ''}${activeTab.url}${suffix}`;
     navigator.clipboard.writeText(output);
-    changeButtonColor(document.getElementById("copyActiveUrlButton"), "green", 2000);
+    changeButtonColor(document.getElementById("copyActiveUrlButton"), "#5d8e4a", 2000);
     console.log("Active URL copied");
   });
 
@@ -194,7 +194,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       // Reload templates to update the UI
       await loadTemplates();
       // Provide visual feedback
-      changeButtonColor(document.getElementById("renameTemplate"), "green", 2000);
+      changeButtonColor(document.getElementById("renameTemplate"), "#5d8e4a", 2000);
       // Hide the modal
       document.getElementById("renameModal").style.display = "none";
       document.getElementById("newTemplateNameInput").value = "";

@@ -24,12 +24,20 @@
         p {
             margin-bottom: 1rem;
         }
-
+        button, select, textarea, input[type="text"] {
+            border: 2px solid #E9E9ED;
+            }
+        button:focus, select:focus, textarea:focus, input:focus[type="text"] {
+            outline: none;
+            border: 2px solid #B1B1B9;
+            }
+        button:hover, select:hover {
+            background-color: #D0D0D7;
+            }
         button {
+            flex: 1;
             width: 100%;
             padding: 0.5rem 1rem;
-            border: none;
-            border-radius: 2px;
             cursor: pointer;
             }
         select {
@@ -44,7 +52,6 @@
             margin: 10px 0;
             box-sizing: border-box;
         }
-
         textarea {
             min-width: 100%;
             max-width: 1000px;
@@ -74,12 +81,6 @@
             margin: 10px 0;
             display: flex;
             gap: 5px;
-        }
-        .buttonGroup button {
-            flex: 1;
-            border: none;
-            border-radius: 2px;
-            cursor: pointer;
         }
         /* CSS for the rename modal */
         #renameModal {
@@ -135,34 +136,16 @@
                 background-color: #2a2a2e;
                 color: #f9f9fa;
             }
-
-            button {
+            button, select, textarea, input[type="text"] {
                 background-color: #3d3d3d;
                 color: #e0e0e0;
-                border: 1px solid #555;
-                border: none;
-                border-radius: 2px;
-                cursor: pointer;
+                border: 2px solid #555;
             }
-            select:hover {
-                background-color: #4a4a4a;
+            button:focus, select:focus, textarea:focus, input:focus[type="text"] {
+                outline: none;
+                border: 2px solid #1c1b22;
             }
-            input[type="text"] {
-                background-color: #3d3d3d;
-                color: #e0e0e0;
-                border: 1px solid #555;
-            }
-            textarea {
-                background-color: #3d3d3d;
-                color: #e0e0e0;
-                border: 1px solid #555;
-            }
-            select {
-                background-color: #3d3d3d;
-                color: #e0e0e0;
-                border: 1px solid #555;
-            }
-            button:hover {
+            button:hover, select:hover {
                 background-color: #4a4a4a;
             }
             .modal-content {

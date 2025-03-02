@@ -99,11 +99,11 @@ async function exportTemplates() {
 
         // Cleanup
         URL.revokeObjectURL(url);
-        changeButtonColor(document.getElementById("exportTemplates"), "green", 2000);
+        changeButtonColor(document.getElementById("exportTemplates"), "#5d8e4a", 2000);
         debugLog("Templates exported successfully");
     } catch (error) {
         debugLog(`Export error: ${error.message}`, true);
-        changeButtonColor(document.getElementById("exportTemplates"), "red", 2000);
+        changeButtonColor(document.getElementById("exportTemplates"), "#8c4a4a", 2000);
     }
 }
 
@@ -117,7 +117,7 @@ async function importTemplates(event) {
         const file = event.target.files[0];
         if (!file) {
             debugLog("No file selected for import", true);
-            changeButtonColor(document.getElementById("importTemplatesBtn"), "red", 2000);
+            changeButtonColor(document.getElementById("importTemplatesBtn"), "#8c4a4a", 2000);
             return;
         }
         debugLog(`File selected: ${file.name}, size: ${file.size} bytes, type: ${file.type}`);
@@ -137,7 +137,7 @@ async function importTemplates(event) {
                     });
                 } catch (parseError) {
                     debugLog(`JSON parsing error: ${parseError.message}`, true);
-                    changeButtonColor(document.getElementById("importTemplatesBtn"), "red", 2000);
+                    changeButtonColor(document.getElementById("importTemplatesBtn"), "#8c4a4a", 2000);
                     return;
                 }
                 try {
@@ -150,28 +150,28 @@ async function importTemplates(event) {
                     // Refresh the templates list
                     await loadTemplates();
                     debugLog("Template list refreshed");
-                    changeButtonColor(document.getElementById("importTemplatesBtn"), "green", 2000);
+                    changeButtonColor(document.getElementById("importTemplatesBtn"), "#5d8e4a", 2000);
                     debugLog("Import completed successfully");
                     // Reset the file input to allow importing the same file again
                     document.getElementById("importTemplatesFile").value = "";
                 } catch (storageError) {
                     debugLog(`Storage error: ${storageError.message}`, true);
-                    changeButtonColor(document.getElementById("importTemplatesBtn"), "red", 2000);
+                    changeButtonColor(document.getElementById("importTemplatesBtn"), "#8c4a4a", 2000);
                 }
             } catch (error) {
                 debugLog(`General error during import: ${error.message}`, true);
-                changeButtonColor(document.getElementById("importTemplatesBtn"), "red", 2000);
+                changeButtonColor(document.getElementById("importTemplatesBtn"), "#8c4a4a", 2000);
             }
         };
         reader.onerror = function(e) {
             debugLog(`FileReader error: ${reader.error}`, true);
-            changeButtonColor(document.getElementById("importTemplatesBtn"), "red", 2000);
+            changeButtonColor(document.getElementById("importTemplatesBtn"), "#8c4a4a", 2000);
         };
         debugLog("Starting file read...");
         reader.readAsText(file);
     } catch (error) {
         debugLog(`Error in import process: ${error.message}`, true);
-        changeButtonColor(document.getElementById("importTemplatesBtn"), "red", 2000);
+        changeButtonColor(document.getElementById("importTemplatesBtn"), "#8c4a4a", 2000);
     }
 }
 
@@ -209,7 +209,7 @@ document.addEventListener("DOMContentLoaded", async () => {
             await browser.storage.local.remove("activeTemplate");
             await loadTemplates();
             debugLog("Template deleted");
-            changeButtonColor(document.getElementById("deleteTemplate"), "green", 2000);
+            changeButtonColor(document.getElementById("deleteTemplate"), "#5d8e4a", 2000);
         }
     });
 
@@ -223,7 +223,7 @@ document.addEventListener("DOMContentLoaded", async () => {
             // Update existing template
             templates[selectedTemplate] = { prefix, suffix };
             await browser.storage.local.set({ templates, activeTemplate: selectedTemplate });
-            changeButtonColor(document.getElementById("saveButton"), "green", 2000);
+            changeButtonColor(document.getElementById("saveButton"), "#5d8e4a", 2000);
             debugLog("Template updated");
         } else {
             // Create new template
@@ -242,7 +242,7 @@ document.addEventListener("DOMContentLoaded", async () => {
             templates[templateName] = { prefix, suffix };
             await browser.storage.local.set({ templates, activeTemplate: templateName });
             await loadTemplates();
-            changeButtonColor(document.getElementById("saveButton"), "green", 2000);
+            changeButtonColor(document.getElementById("saveButton"), "#5d8e4a", 2000);
             document.getElementById("modal").style.display = "none";
             document.getElementById("templateNameInput").value = "";
             debugLog("New template saved successfully");
@@ -291,7 +291,7 @@ document.addEventListener("DOMContentLoaded", async () => {
             // Reload templates to update the UI
             await loadTemplates();
             // Provide visual feedback
-            changeButtonColor(document.getElementById("renameTemplate"), "green", 2000);
+            changeButtonColor(document.getElementById("renameTemplate"), "#5d8e4a", 2000);
             // Hide the modal
             document.getElementById("renameModal").style.display = "none";
             document.getElementById("newTemplateNameInput").value = "";
