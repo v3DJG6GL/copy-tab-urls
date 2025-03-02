@@ -71,18 +71,32 @@ async function exportTemplates() {
         const storedData = await browser.storage.local.get("templates");
         const templates = storedData.templates || {};
         debugLog(`Exporting ${Object.keys(templates).length} templates`);
+
         // Create the JSON content with proper indentation to preserve multiline formatting
         const jsonContent = JSON.stringify(templates, null, 2);
+
         // Create a blob and download link
         const blob = new Blob([jsonContent], { type: 'application/json' });
         const url = URL.createObjectURL(blob);
-        // Create and trigger a download
+
+        // Generate timestamp for the filename in YYYY.MM.DD_HH.mm.ss format
+        const now = new Date();
+        const year = now.getFullYear();
+        const month = String(now.getMonth() + 1).padStart(2, '0'); // Months are 0-indexed
+        const day = String(now.getDate()).padStart(2, '0');
+        const hours = String(now.getHours()).padStart(2, '0');
+        const minutes = String(now.getMinutes()).padStart(2, '0');
+        const seconds = String(now.getSeconds()).padStart(2, '0');
+        const timestamp = `${year}.${month}.${day}_${hours}.${minutes}.${seconds}`;
+
+        // Create and trigger a download with timestamp in filename
         const downloadLink = document.createElement('a');
         downloadLink.href = url;
-        downloadLink.download = 'copy-tab-urls-templates.json';
+        downloadLink.download = `copy-tab-urls-templates_${timestamp}.json`;
         document.body.appendChild(downloadLink);
         downloadLink.click();
         document.body.removeChild(downloadLink);
+
         // Cleanup
         URL.revokeObjectURL(url);
         changeButtonColor(document.getElementById("exportTemplates"), "green", 2000);
