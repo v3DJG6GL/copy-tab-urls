@@ -31,6 +31,7 @@ browser.contextMenus.onClicked.addListener(async (info, tab) => {
 
 		let output = prefix ? `${prefix}\n` : '';
 		output += urls.map(url => `${url}${suffix}`).join("\n");
+		console.log("Marked URLs copied");
 
 		await navigator.clipboard.writeText(output);
 	}
@@ -38,5 +39,6 @@ browser.contextMenus.onClicked.addListener(async (info, tab) => {
 		const activeTab = await browser.tabs.get(tab.id);
 		const output = `${prefix ? prefix + '\n' : ''}${activeTab.url}${suffix}`;
 		await navigator.clipboard.writeText(output);
+		console.log("Active URL copied");
 	}
 });

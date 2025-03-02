@@ -174,12 +174,14 @@ document.addEventListener("DOMContentLoaded", async () => {
             document.getElementById("saveButton").textContent = "Update Template";
             // Save the active template
             await browser.storage.local.set({ activeTemplate: selectedTemplate });
+            debugLog("Active template loaded");
         } else {
             document.getElementById("prefixInput").value = "";
             document.getElementById("suffixInput").value = "";
             document.getElementById("saveButton").textContent = "Save New Template";
             // Clear the active template
             await browser.storage.local.remove("activeTemplate");
+            debugLog("Active template cleared");
         }
     });
 
@@ -192,6 +194,7 @@ document.addEventListener("DOMContentLoaded", async () => {
             await browser.storage.local.set({ templates });
             await browser.storage.local.remove("activeTemplate");
             await loadTemplates();
+            debugLog("Template deleted");
             changeButtonColor(document.getElementById("deleteTemplate"), "green", 2000);
         }
     });
@@ -207,9 +210,11 @@ document.addEventListener("DOMContentLoaded", async () => {
             templates[selectedTemplate] = { prefix, suffix };
             await browser.storage.local.set({ templates, activeTemplate: selectedTemplate });
             changeButtonColor(document.getElementById("saveButton"), "green", 2000);
+            debugLog("Template updated");
         } else {
             // Create new template
             document.getElementById("modal").style.display = "block";
+            debugLog("Template save modal: opened");
         }
     });
 
@@ -226,12 +231,14 @@ document.addEventListener("DOMContentLoaded", async () => {
             changeButtonColor(document.getElementById("saveButton"), "green", 2000);
             document.getElementById("modal").style.display = "none";
             document.getElementById("templateNameInput").value = "";
+            debugLog("New template saved successfully");
         }
     });
 
     document.getElementById("cancelTemplateNameButton").addEventListener("click", () => {
         document.getElementById("modal").style.display = "none";
         document.getElementById("templateNameInput").value = "";
+        debugLog("Save new template: aborted");
     });
 
     // Add event listener for the rename template button
@@ -240,8 +247,10 @@ document.addEventListener("DOMContentLoaded", async () => {
         if (selectedTemplate) {
             // Show the rename modal
             document.getElementById("renameModal").style.display = "block";
+            debugLog("Template rename modal: opened");
             // Pre-fill the input with the current template name
             document.getElementById("newTemplateNameInput").value = selectedTemplate;
+            debugLog("Template rename modal: input field pre-filled with current template name");
         }
     });
 
@@ -272,6 +281,7 @@ document.addEventListener("DOMContentLoaded", async () => {
             // Hide the modal
             document.getElementById("renameModal").style.display = "none";
             document.getElementById("newTemplateNameInput").value = "";
+            debugLog("Template renamed successfully");
         }
     });
 
@@ -279,6 +289,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     document.getElementById("cancelRenameButton").addEventListener("click", () => {
         document.getElementById("renameModal").style.display = "none";
         document.getElementById("newTemplateNameInput").value = "";
+        debugLog("Template rename aborted");
     });
 
     console.log("All event listeners registered, addon initialization complete");
