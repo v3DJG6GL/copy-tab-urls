@@ -14,7 +14,7 @@ custom_filename = "copy-tab-urls"  # Leave empty to use the parent folder name
 ignore_patterns = [r'.*\.py', r'\.git', r'.*\.zip', r'.*\.backup', r'.*\.xpi']  # Add regex patterns to ignore
 
 # Get the current timestamp
-timestamp = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
+timestamp = datetime.datetime.now().strftime("%Y.%m.%d_%H.%M.%S")
 
 # Get the parent folder name
 parent_folder_name = os.path.basename(os.path.dirname(source_folder))
